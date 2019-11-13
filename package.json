@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react",
-  "version": "2.1.0",
-  "description": "A chrome extension boilerplate built with React 16 and Webpack 4",
+  "name": "chrome-extension-english-library",
+  "version": "1.0.0",
+  "description": "A chrome extension for english dictionary built with React 16 and Webpack 4",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+    "url": "https://github.com/hyeleek/english-dictionary-chrome-extension.git"
   },
   "scripts": {
     "build": "node utils/build.js",
