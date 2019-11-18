@@ -8,14 +8,16 @@ let sidebarRoot = document.createElement('div');
 document.body.appendChild(sidebarRoot);
 sidebarRoot.setAttribute('id', 'sidebar-root');
 
-function mountSidebar() {
-  const App = (
-    <Frame
-      url={chrome.extension.getURL('sidebar.html')}
-    />
-  );
-  ReactDOM.render(App, sidebarRoot);
-}
+let selectedWord = null;
+document.addEventListener("mouseup", handleSelection);
+
+const frameComponent =  ReactDOM.render(
+  <Frame
+    url={chrome.extension.getURL('sidebar.html')}
+    word = {selectedWord}
+  />,
+  sidebarRoot
+);
 
 function unmountSidebar() {
   try {
@@ -27,13 +29,20 @@ function unmountSidebar() {
   }
 }
 
+function handleSelection(){
+  if (window.getSelection()) {
+    console.log(frameComponent);
+    selectedWord = window.getSelection().toString();
+    frameComponent.updateSearchTerm(selectedWord);
+  }
+}
+
 const checkSidebarStatus = () => {
   chrome.runtime.sendMessage(
     {
       from: 'content',
       msg: 'REQUEST_SIDEBAR_STATUS',
     }, function(response){
-        console.log("reponse of sidebar", response);
         changeWidth(response);
     }
   );
@@ -41,19 +50,16 @@ const checkSidebarStatus = () => {
 };
 
 const changeWidth = (toggleResult) => {
-  console.log("change width class");
   sidebarRoot.removeAttribute("class");
   if ( toggleResult ){
     sidebarRoot.setAttribute('class', 'expanded');
   } else {
     sidebarRoot.setAttribute('class', 'shrink');
   }
-
 }
 
 
 checkSidebarStatus();
-mountSidebar();
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (

@@ -1,23 +1,47 @@
 import React, { Component } from 'react';
+
 import './Sidebar.css';
+import GreetingComponent from '../../containers/Greetings/Greetings.jsx';
+import SearchbarComponent from '../../containers/Searchbar/Searchbar.jsx';
+import SearchResultComponent from '../../containers/SearchResult/SearchResult.jsx';
 
 class Sidebar extends Component {
-  state = {
-  };
 
-  constructor(props) {
+  constructor(props){
     super(props);
+    this.state = {
+      selectedWord : null,
+      searchTerm : null,
+      data: null
+    };
+    this.currentSearch = this.currentSearch.bind(this);
+    this.updateSearchTerm = this.updateSearchTerm.bind(this);
   }
 
-  componentDidMount() {
+  updateSearchTerm = (term) => {
+    this.setState({
+      searchTerm: term
+    });
+  }
+
+  currentSearch = (searchResult) => {
+    this.setState({
+      data: searchResult
+    });
   }
 
   render() {
-    const {  } = this.state;
+
+    const { data, searchTerm } = this.state;
 
     return (
-      <div className="SidebarContainer">
-        <p> hello I am sidebar</p>
+      <div id="SidebarContainer" >
+        <SearchbarComponent
+          currentSearch = {this.currentSearch}
+          updateSearchTerm = {this.updateSearchTerm}
+        />
+        <h3 id={"SearchTerm"}>{searchTerm}</h3>
+        <SearchResultComponent data={data} searchTerm={searchTerm}/>
       </div>
     );
   }

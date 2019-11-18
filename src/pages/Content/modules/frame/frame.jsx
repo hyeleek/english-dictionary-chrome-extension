@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import './frame.css';
 
-export class Frame extends Component {
+class Frame extends Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      searchTerm : null
+    };
+    this.updateSearchTerm = this.updateSearchTerm.bind(this);
+  }
+
+  updateSearchTerm = (term) => {
+    this.setState({
+      searchTerm: term
+    });
   }
 
   render() {

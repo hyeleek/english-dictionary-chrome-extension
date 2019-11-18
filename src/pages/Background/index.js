@@ -7,7 +7,10 @@ let sidebarOpen = true; // open -> true  |  close -> false
 chrome.storage.local.get(['sidebarOpen'], (result) => {
   if (result.sidebarOpen !== undefined) {
     sidebarOpen = result.sidebarOpen === true;
-    console.log("got local storage data ", sidebarOpen);
+  } else{
+    chrome.storage.local.set({'sidebarOpen': true}, function() {
+
+    });
   }
   changeBrowserIconBadgeWithSidebarOpenStatus(sidebarOpen);
 });
@@ -59,7 +62,6 @@ const persistSidebarOpenStatus = (status) => {
 
 
 chrome.browserAction.onClicked.addListener((senderTab) => {
-  console.log("browser icon clicked");
   toggleSidebar();
 });
 

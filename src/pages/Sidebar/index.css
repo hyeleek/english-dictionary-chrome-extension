@@ -1,5 +1,18 @@
+html, #all {
+	/*setting global variables */
+  --navy : #303841;
+  --gray: #EEEEEE;
+	--blue: #577386;
+	--red: #D62323;
+  --white : #FFFFFF;
+}
 body {
-  width : 100%;
-  height: 100%;
-  margin : 0px;
+	width: 100%;
+  background: var(--gray);
+  font-family: "Open Sans";
+	font-weight: 400;
+  font-size: 13px;
+  color : var(--navy);
+  margin : 0;
+  padding : 0;
 }

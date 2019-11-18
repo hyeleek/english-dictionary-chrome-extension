@@ -1,4 +1,8 @@
-.SidebarContainer {
-  background-color: pink;
+#SidebarContainer {
   margin : 0;
+}
+
+#SearchTerm{
+  margin : 10px 10px;
+  color : var(--red);
 }
