@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './content.styles.css';
 import { printLine } from './modules/print';
 import Frame from './modules/frame/frame';
+import Sidebar from '../Sidebar/Sidebar.jsx';
 
 let sidebarRoot = document.createElement('div');
 document.body.appendChild(sidebarRoot);
@@ -12,9 +13,7 @@ let selectedWord = null;
 document.addEventListener("mouseup", handleSelection);
 
 const frameComponent =  ReactDOM.render(
-  <Frame
-    url={chrome.extension.getURL('sidebar.html')}
-    word = {selectedWord}
+  <Sidebar
   />,
   sidebarRoot
 );

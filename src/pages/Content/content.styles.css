@@ -1,9 +1,29 @@
+html, #all {
+	/*setting global variables */
+  --navy : #303841;
+  --gray: #EEEEEE;
+	--blue: #577386;
+	--red: #D62323;
+  --white : #FFFFFF;
+}
+body {
+	width: 100%;
+  background: var(--gray);
+  font-family: "Open Sans";
+	font-weight: 400;
+  font-size: 13px;
+  color : var(--navy);
+  margin : 0;
+  padding : 0;
+}
+
 #sidebar-root{
   position: fixed;
   right: 0;
   top: 0;
   z-index: 100000;
   height: 100%;
+  background-color: var(--gray);
 }
 
 .shrink{
