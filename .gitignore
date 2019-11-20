@@ -20,4 +20,4 @@
 .env.production.local
 
 # secrets
-secret.*.js
+secrets.*.js
