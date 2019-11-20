@@ -1,35 +1,27 @@
-html, #all {
-	/*setting global variables */
+div#sidebar-root{
   --navy : #303841;
   --gray: #EEEEEE;
-	--blue: #577386;
-	--red: #D62323;
+  --blue: #577386;
+  --red: #D62323;
   --white : #FFFFFF;
-}
-body {
-	width: 100%;
-  background: var(--gray);
-  font-family: "Open Sans";
-	font-weight: 400;
-  font-size: 13px;
-  color : var(--navy);
-  margin : 0;
-  padding : 0;
-}
-
-#sidebar-root{
   position: fixed;
   right: 0;
   top: 0;
   z-index: 100000;
   height: 100%;
   background-color: var(--gray);
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 13px;
+  font-style: normal;
+  color : var(--navy);
+  box-shadow: 0px 0px 5px rgba(0,0,0,1.0);
 }
 
-.shrink{
-  width : 0%;
+div.shrink{
+  width : 0px;
 }
 
-.expanded {
-  width : 25%;
+div.expanded {
+  width : 350px;
 }

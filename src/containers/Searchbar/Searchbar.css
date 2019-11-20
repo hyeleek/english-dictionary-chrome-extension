@@ -1,5 +1,5 @@
 
-form{
+form#SearchbarComponent{
   width : 96%;
   margin : 8% 2%;
   display: flex;
@@ -7,8 +7,7 @@ form{
   flex-direction: row;
   justify-content: center;
 }
-
-input[type=text]{
+form#SearchbarComponent > input[type=text]{
   text-decoration: none;
   margin: 0px 10px;
   padding: 0px 0px 0px 20px;
@@ -23,12 +22,11 @@ input[type=text]{
   font-weight: 700;
   font-size: 15px;
 }
-
-input[type=submit]{
+form#SearchbarComponent > input[type=submit]{
   background-repeat: no-repeat;
   background-size: 16px 16px;
   background-position: center;
-  background-image: url("../../assets/img/submit.png");
+  background-image: url("https://i.ibb.co/8bT870C/submit.png");
   background-color: var(--red);
   border: 0px;
   border-radius: 16px;

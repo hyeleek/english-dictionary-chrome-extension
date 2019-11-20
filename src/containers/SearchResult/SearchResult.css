@@ -2,28 +2,29 @@
   margin : 0px 10px;
   overflow: auto;
 }
-p{
+/* #SearchResultContainer {
   margin : 0px;
-}
-.speechType{
+} */
+#SearchResultContainer > .speechType{
   margin: 0px 0px 20px 0px;
 }
-.speechTypeWord{
+#SearchResultContainer > .speechType > .speechTypeWord{
   color : var(--blue);
   font-size: 14px;
   font-style: italic;
   margin: 3px 0px;
 }
-.definition{
+#SearchResultContainer > .speechType > .definition{
   line-height: 1.4;
   margin: 3px 5px;
+  font-style: normal;
 }
-#intro{
+#SearchResultContainer > #intro{
   font-size: 16px;
   color : var(--blue);
   font-style: italic;
 }
-#undefined{
+#SearchResultContainer > #undefined{
   font-size: 16px;
   font-weight: lighter;
   color : var(--blue);

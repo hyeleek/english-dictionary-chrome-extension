@@ -13,9 +13,7 @@ let selectedWord = null;
 document.addEventListener("mouseup", handleSelection);
 
 const frameComponent =  ReactDOM.render(
-  <Sidebar
-  />,
-  sidebarRoot
+  <Sidebar/>, sidebarRoot
 );
 
 function unmountSidebar() {
@@ -29,10 +27,9 @@ function unmountSidebar() {
 }
 
 function handleSelection(){
-  if (window.getSelection()) {
-    console.log(frameComponent);
+  if (window.getSelection() && window.getSelection().toString()!="") {
     selectedWord = window.getSelection().toString();
-    frameComponent.updateSearchTerm(selectedWord);
+    frameComponent.currentSearch(selectedWord);
   }
 }
 

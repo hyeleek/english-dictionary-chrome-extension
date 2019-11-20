@@ -8,11 +8,12 @@ html, #all {
 }
 body {
 	width: 100%;
-  background: var(--gray);
-  font-family: "Open Sans";
-	font-weight: 400;
-  font-size: 13px;
-  color : var(--navy);
   margin : 0;
   padding : 0;
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 13px;
+  font-style: normal;
+  color : var(--navy);
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.16);
 }
