@@ -13,8 +13,19 @@ let selectedWord = null;
 document.addEventListener("mouseup", handleSelection);
 
 const frameComponent =  ReactDOM.render(
-  <Sidebar/>, sidebarRoot
+  <Frame
+    url={chrome.extension.getURL('sidebar.html')}
+  />, sidebarRoot
 );
+
+var frame = document.getElementById('sidebar-iframe').contentWindow;
+
+function handleSelection(){
+  if (window.getSelection() && window.getSelection().toString()!="") {
+    selectedWord = window.getSelection().toString();
+    frame.postMessage({type: "parent", term: selectedWord }, "*");
+  }
+}
 
 function unmountSidebar() {
   try {
@@ -23,13 +34,6 @@ function unmountSidebar() {
     ReactDOM.unmountComponentAtNode(sidebarRoot);
   } catch (e) {
     console.log(e);
-  }
-}
-
-function handleSelection(){
-  if (window.getSelection() && window.getSelection().toString()!="") {
-    selectedWord = window.getSelection().toString();
-    frameComponent.currentSearch(selectedWord);
   }
 }
 
@@ -53,7 +57,6 @@ const changeWidth = (toggleResult) => {
     sidebarRoot.setAttribute('class', 'shrink');
   }
 }
-
 
 checkSidebarStatus();
 

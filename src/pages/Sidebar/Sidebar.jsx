@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 import './Sidebar.css';
 import GreetingComponent from '../../containers/Greetings/Greetings.jsx';
@@ -6,7 +7,8 @@ import SearchbarComponent from '../../containers/Searchbar/Searchbar.jsx';
 import SearchResultComponent from '../../containers/SearchResult/SearchResult.jsx';
 import HistoryComponent from '../../containers/History/History.jsx';
 
-import { dictionaryKey } from '../../secret.dictionary.js';
+import { dictionaryKey } from '../../secrets.dictionary.js';
+
 
 class Sidebar extends Component {
 
@@ -20,7 +22,6 @@ class Sidebar extends Component {
       newHistory = temp;
     }
     this.state = {
-      selectedWord : null,
       searchTerm : null,
       data: null,
       historyList : newHistory
@@ -30,12 +31,31 @@ class Sidebar extends Component {
     this.deleteHistory = this.deleteHistory.bind(this);
     this.clearHistory = this.clearHistory.bind(this);
     this.addHistory = this.addHistory.bind(this);
+    this.msgHandler = this.msgHandler.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('message', this.msgHandler);
+    document.addEventListener("mouseup", this.handleSelection);
+  }
+
+  msgHandler(e) {
+    if ( e.data.type === "parent"){
+      this.currentSearch(e.data.term);
+    }
   }
 
   updateSearchTerm = (term) => {
     this.setState({
       searchTerm: term
     });
+  }
+
+  handleSelection = () => {
+    if (window.getSelection() && window.getSelection().toString()!="") {
+      this.currentSearch(window.getSelection().toString());
+    }
   }
 
   currentSearch = (value) => {
@@ -109,7 +129,7 @@ class Sidebar extends Component {
     const { data, searchTerm, historyList } = this.state;
 
     return (
-      <div id="SidebarContainer" >
+      <div id="SidebarContainer" onLoad={this.doneLoading}>
         <div id="SearchContainer">
           <SearchbarComponent
             currentSearch = {this.currentSearch}

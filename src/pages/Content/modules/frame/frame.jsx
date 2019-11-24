@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import './frame.css';
 
 class Frame extends Component {
@@ -8,13 +9,11 @@ class Frame extends Component {
     this.state = {
       searchTerm : null
     };
-    this.updateSearchTerm = this.updateSearchTerm.bind(this);
+    this.doneLoading = this.doneLoading.bind(this);
   }
 
-  updateSearchTerm = (term) => {
-    this.setState({
-      searchTerm: term
-    });
+  doneLoading = () => {
+    window.postMessage({type: "frame", term: "done" });
   }
 
   render() {
@@ -24,8 +23,9 @@ class Frame extends Component {
           <iframe
             src = {url}
             id={'sidebar-iframe'}
+            onLoad={this.doneLoading()}
           >
-        </iframe>
+          </iframe>
       </React.Fragment>
     );
   }
