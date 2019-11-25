@@ -24,13 +24,16 @@ form#SearchbarComponent > input[type=text]{
 }
 form#SearchbarComponent > input[type=submit]{
   background-repeat: no-repeat;
-  background-size: 16px 16px;
+  background-size: 12px 12px;
   background-position: center;
-  background-image: url("https://i.ibb.co/8bT870C/submit.png");
-  background-color: var(--red);
+  background-image: url("../../assets/img/submit.png");
+  background-color: var(--navy);
   border: 0px;
-  border-radius: 16px;
-  height: 32px;
-  width : 32px;
+  border-radius: 15px;
+  height: 30px;
+  width : 30px;
   box-shadow: 0px 3px 3px rgba(0,0,0,0.16);
+}
+form#SearchbarComponent > input[type=submit]:hover{
+  background-color: var(--red);
 }

@@ -10,11 +10,11 @@ class HistoryComponent extends Component{
   }
 
   render() {
-    const { term, index, currentSearch, deleteHistory } = this.props;
+    const { term, index, redoSearch, deleteHistory } = this.props;
     return (
       <div className="HistoryTermContainer" >
           <div
-            className="HistoryTerm"         onClick={()=>currentSearch(term)}>
+            className="HistoryTerm"         onClick={()=>redoSearch(index)}>
             <p> {term}</p>
           </div>
           <div className="HistoryDelete" onClick={()=>deleteHistory(index)}> </div>
@@ -26,7 +26,7 @@ class HistoryComponent extends Component{
 HistoryComponent.propTypes = {
   term : PropTypes.string.isRequired,
   index : PropTypes.number.isRequired,
-  currentSearch: PropTypes.func.isRequired,
+  redoSearch: PropTypes.func.isRequired,
   deleteHistory: PropTypes.func.isRequired
 };
 

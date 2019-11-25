@@ -9,7 +9,6 @@ import HistoryComponent from '../../containers/History/History.jsx';
 
 import { dictionaryKey } from '../../secrets.dictionary.js';
 
-
 class Sidebar extends Component {
 
   constructor(props){
@@ -27,6 +26,7 @@ class Sidebar extends Component {
       historyList : newHistory
     };
     this.currentSearch = this.currentSearch.bind(this);
+    this.redoSearch = this.redoSearch.bind(this);
     this.updateSearchTerm = this.updateSearchTerm.bind(this);
     this.deleteHistory = this.deleteHistory.bind(this);
     this.clearHistory = this.clearHistory.bind(this);
@@ -58,16 +58,28 @@ class Sidebar extends Component {
     }
   }
 
+  redoSearch = (index) => {
+    const { historyList } = this.state;
+    const term = historyList[index];
+    var newHistory = historyList;
+    newHistory.splice(index, 1);
+    newHistory.unshift(term.toLowerCase());
+    window.localStorage.setItem('DictionarySearchHistory', JSON.stringify(newHistory));
+    this.setState({
+      historyList : newHistory
+    });
+    this.currentSearch(term);
+  }
+
   currentSearch = (value) => {
 
     const { data, searchTerm, historyList } = this.state;
+    console.log(value);
 
-    if ( searchTerm!==null &&  data!==null && !historyList.includes(searchTerm)){
-      this.addHistory(searchTerm);
-    }
     // fetch the api search result
     fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${value}?key=${dictionaryKey}`)
     .then((result) => {
+
       return result.json();
     }).then( (jsonResult) => {
       // no match : short words
@@ -87,12 +99,17 @@ class Sidebar extends Component {
           this.setState({
             data: filteredResult
           });
+          if ( !historyList.includes(value)){
+            this.addHistory(value);
+          }
+
         } else {
           this.setState({
             data: null
           });
         }
       }
+
     });
     this.updateSearchTerm(value);
   }
@@ -129,7 +146,8 @@ class Sidebar extends Component {
     const { data, searchTerm, historyList } = this.state;
 
     return (
-      <div id="SidebarContainer" onLoad={this.doneLoading}>
+      <div id="SidebarContainer" >
+
         <div id="SearchContainer">
           <SearchbarComponent
             currentSearch = {this.currentSearch}
@@ -138,22 +156,26 @@ class Sidebar extends Component {
           <p id={"SearchTerm"}>{searchTerm}</p>
           <SearchResultComponent data={data} searchTerm={searchTerm}/>
         </div>
+
         <div id="HistoryContainer">
           { historyList.length!==0 &&
             <div  id="HistoryClear">
               <button onClick={this.clearHistory} >clear</button>
             </div>
           }
+          <div id="HistoryTerms">
           { historyList.map((term, index) => (
             <HistoryComponent
               key={index}
               index={index}
               term={term}
-              currentSearch={this.currentSearch}
+              redoSearch={this.redoSearch}
               deleteHistory={this.deleteHistory}
-            />
-          ))}
+            />))
+          }
+          </div>
         </div>
+
       </div>
     );
   }

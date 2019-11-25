@@ -8,6 +8,7 @@ import Sidebar from '../Sidebar/Sidebar.jsx';
 let sidebarRoot = document.createElement('div');
 document.body.appendChild(sidebarRoot);
 sidebarRoot.setAttribute('id', 'sidebar-root');
+sidebarRoot.setAttribute('class', 'shrink');
 
 let selectedWord = null;
 document.addEventListener("mouseup", handleSelection);

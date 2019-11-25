@@ -38,10 +38,17 @@
   box-shadow: 0px 3px 3px rgba(0,0,0,0.16);
   color: var(--white);
   font-weight: 300;
-  border-color: white;
   box-shadow: none;
 }
 
 #SidebarContainer > #HistoryContainer > #HistoryClear > button:hover{
   font-weight: 400;
+  background-color: var(--red);
+}
+
+#SidebarContainer > #HistoryTerms{
+  overflow-y: scroll;
+  position : absolute;
+  bottom : 0;
+  height : 250px;
 }
