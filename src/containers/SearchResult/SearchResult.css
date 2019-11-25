@@ -20,11 +20,16 @@
   font-style: normal;
 }
 #SearchResultContainer > #intro{
-  padding : 0px 5%;
+  padding : 0px 2.5%;
   font-size: 16px;
   font-weight: 300;
   color : var(--blue);
-  font-style: italic;
+  line-height: 1.6;
+}
+#SearchResultContainer > #intro > strong{
+  color : var(--red);
+  font-style: normal;
+  font-size: 18px;
 }
 #SearchResultContainer > #undefined{
   font-size: 16px;

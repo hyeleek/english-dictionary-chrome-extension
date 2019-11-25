@@ -34,7 +34,10 @@ const SearchResultComponent = (props) => {
       }
       {  props.data=== null &&
         (props.searchTerm === null ?
-        <p id="intro"> Welcome to Chrome Extension English Dictonary. Search the term either by searching on SearchBar or by dragging/selecting word directly on the homepage. Keep record of your recent dictionary searches and revisit them at ease.</p> :
+        <p id="intro">
+          <strong> Welcome to English Dictonary Chrome Extension! </strong>
+          <br/><br/>Search the term either by searching on SearchBar or by dragging/selecting word directly on the homepage.
+          <br/><br/>Keep the record of your recent searches and revisit them at ease.</p> :
         <p id="undefined"> Undefined Word</p>
         )
       }
