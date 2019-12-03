@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import './Sidebar.css';
-import GreetingComponent from '../../containers/Greetings/Greetings.jsx';
 import SearchbarComponent from '../../containers/Searchbar/Searchbar.jsx';
 import SearchResultComponent from '../../containers/SearchResult/SearchResult.jsx';
 import HistoryComponent from '../../containers/History/History.jsx';
 
-import { dictionaryKey } from '../../secrets.dictionary.js';
+import { dictionaryKey, thesaurusKey } from '../../secrets.dictionary.js';
 
 class Sidebar extends Component {
 
@@ -23,7 +22,8 @@ class Sidebar extends Component {
     this.state = {
       searchTerm : null,
       data: null,
-      historyList : newHistory
+      historyList : newHistory,
+      loading : false
     };
     this.currentSearch = this.currentSearch.bind(this);
     this.redoSearch = this.redoSearch.bind(this);
@@ -40,9 +40,10 @@ class Sidebar extends Component {
     document.addEventListener("mouseup", this.handleSelection);
   }
 
+  // mouse selected word from the outer window
   msgHandler(e) {
     if ( e.data.type === "parent"){
-      this.currentSearch(e.data.term);
+      this.currentSearch(e.data.term, 1);
     }
   }
 
@@ -52,12 +53,14 @@ class Sidebar extends Component {
     });
   }
 
+  // mouse selected word from the innter window
   handleSelection = () => {
     if (window.getSelection() && window.getSelection().toString()!="") {
-      this.currentSearch(window.getSelection().toString());
+      this.currentSearch(window.getSelection().toString(), 1);
     }
   }
 
+  // redoing search from the stacked search history
   redoSearch = (index) => {
     const { historyList } = this.state;
     const term = historyList[index];
@@ -68,50 +71,62 @@ class Sidebar extends Component {
     this.setState({
       historyList : newHistory
     });
-    this.currentSearch(term);
+    this.currentSearch(term, 1);
   }
 
-  currentSearch = (value) => {
+  currentSearch = (value, count) => {
+
+    this.setState({
+      loading: true
+    });
+    this.updateSearchTerm(value);
 
     const { data, searchTerm, historyList } = this.state;
-    console.log(value);
+
+    let searhQuery = count<=1?
+    `https://www.dictionaryapi.com/api/v3/references/thesaurus/json/${value}?key=${thesaurusKey}`:
+    `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${value}?key=${dictionaryKey}`
+    ;
+
+    let newData = null;
 
     // fetch the api search result
-    fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${value}?key=${dictionaryKey}`)
+    fetch(searhQuery)
     .then((result) => {
-
       return result.json();
     }).then( (jsonResult) => {
-      // no match : short words
+
+      // no match : short words --> list of suggested possible words array
       if ( jsonResult.every((val, i, arr) => typeof(val)==="string")){
-        this.setState({
-          data: null
-        });
+        newData = null;
       }
+
       // filtering for exact results
       else {
+
         let filteredResult = jsonResult.filter(definition =>
           value.toUpperCase()===definition.meta.id.toUpperCase() ||
           definition.meta.id.toUpperCase().includes(value.toUpperCase()+":")
         );
 
         if ( filteredResult.length!==0){
-          this.setState({
-            data: filteredResult
-          });
+          newData = filteredResult;
           if ( !historyList.includes(value)){
             this.addHistory(value);
           }
-
         } else {
-          this.setState({
-            data: null
-          });
+          newData = null;
         }
       }
 
+      this.setState({
+          loading: false,
+          data: newData
+      });
+      if ( newData === null && count<=1){
+        this.currentSearch(value, 2);
+      }
     });
-    this.updateSearchTerm(value);
   }
 
   addHistory = (searchTerm) => {
@@ -143,7 +158,7 @@ class Sidebar extends Component {
 
   render() {
 
-    const { data, searchTerm, historyList } = this.state;
+    const { data, searchTerm, historyList, loading } = this.state;
 
     return (
       <div id="SidebarContainer" >
@@ -154,7 +169,13 @@ class Sidebar extends Component {
             updateSearchTerm = {this.updateSearchTerm}
           />
           <p id={"SearchTerm"}>{searchTerm}</p>
-          <SearchResultComponent data={data} searchTerm={searchTerm}/>
+          { loading ?
+            <div id="Loading"></div>:
+            <SearchResultComponent
+              data={data}
+              searchTerm={searchTerm}
+            />
+          }
         </div>
 
         <div id="HistoryContainer">
@@ -177,7 +198,7 @@ class Sidebar extends Component {
         </div>
 
       </div>
-    );
+    );;
   }
 }
 

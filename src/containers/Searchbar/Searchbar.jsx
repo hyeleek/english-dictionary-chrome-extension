@@ -15,10 +15,11 @@ class SearchbarComponent extends Component{
     this.setState({value: event.target.value});
   }
 
+  // submits written word from searchbar
   handleSubmit(event) {
     const { value } = this.state;
     const { currentSearch } = this.props;
-    currentSearch(value);
+    currentSearch(value, 1);
     this.setState({
       value : ""
     });

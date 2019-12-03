@@ -2,9 +2,6 @@
   margin : 0px 10px;
   overflow: auto;
 }
-/* #SearchResultContainer {
-  margin : 0px;
-} */
 #SearchResultContainer > .speechType{
   margin: 0px 0px 20px 0px;
 }
@@ -14,10 +11,18 @@
   font-style: italic;
   margin: 3px 0px;
 }
-#SearchResultContainer > .speechType > .definition{
+#SearchResultContainer > .speechType > .word > .definition{
   line-height: 1.4;
-  margin: 3px 5px;
+  margin: 5px 8px;
   font-style: normal;
+}
+#SearchResultContainer > .speechType > .word > .synonym{
+  color : var(--blue);
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0px 0px 8px 15px;
+  font-weight: 300;
+  font-style: italic;
 }
 #SearchResultContainer > #intro{
   padding : 0px 2.5%;

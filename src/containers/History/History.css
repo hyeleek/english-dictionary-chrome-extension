@@ -2,7 +2,7 @@
 .HistoryTermContainer{
   width : 100%;
   background-color: var(--blue);
-  height : 48px;
+  height : 40px;
   padding : 0px 0px;
   border : solid 1px var(--white);
   border-bottom: none;
@@ -20,7 +20,8 @@
   margin-left: 10px;
   font-style: normal;
   font-family: "Open Sans";
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 400;
   color : var(--white);
   align-items: center;
   display: flex;
@@ -32,9 +33,9 @@
   margin-right: 10px;
   align-self: center;
   border: 0px;
-  border-radius: 10px;
-  height: 20px;
-  width : 20px;
+  border-radius: 50%;
+  height: 18px;
+  width : 18px;
   box-shadow: 0px 3px 3px rgba(0,0,0,0.16);
   background-repeat: no-repeat;
   background-size: 8px 8px;

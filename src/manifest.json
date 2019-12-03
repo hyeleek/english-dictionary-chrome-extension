@@ -5,11 +5,11 @@
     "page": "background.html"
   },
   "browser_action": {
-    "default_icon": "icon-34.png"
+    "default_icon": "icon_inactive-128.png"
   },
   "permissions": ["chrome://favicon/", "tabs", "activeTab", "storage"],
   "icons": {
-    "128": "icon-128.png"
+    "128": "icon_active-128.png"
   },
   "content_scripts": [{
     "matches": ["http://*/*", "https://*/*", "<all_urls>"],
@@ -19,9 +19,8 @@
   "web_accessible_resources": [
     "sidebar.html",
     "content.styles.css",
-    "icon-128.png",
-    "icon-34.png",
-    "icon-34-mark.png"
+    "icon_inactive-128.png",
+    "icon_active-128.png"
   ],
   "manifest_version": 2,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"

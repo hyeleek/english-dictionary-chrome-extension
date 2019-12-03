@@ -1,6 +1,5 @@
-import '../../assets/img/icon-34.png';
-import '../../assets/img/icon-34-mark.png';
-import '../../assets/img/icon-128.png';
+import '../../assets/img/icon_active-128.png';
+import '../../assets/img/icon_inactive-128.png';
 
 let sidebarOpen = true; // open -> true  |  close -> false
 
@@ -45,11 +44,11 @@ const toggleSidebar = (toStatus = null) => {
 const changeBrowserIconBadgeWithSidebarOpenStatus = (status) => {
   if (status) {
     chrome.browserAction.setIcon({
-      path: chrome.extension.getURL('icon-34-mark.png'),
+      path: chrome.extension.getURL('icon_active-128.png'),
     });
   } else {
     chrome.browserAction.setIcon({
-      path: chrome.extension.getURL('icon-34.png'),
+      path: chrome.extension.getURL('icon_inactive-128.png'),
     });
   }
 };
